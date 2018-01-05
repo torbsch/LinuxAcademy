@@ -1,0 +1,16 @@
+--- # My First Playbook
+
+- hosts: torbsch1
+  become: yes
+  gather_facts: no
+  connection: ssh
+  vars:
+    playbookversion: 0.1
+  vars_files:
+  - conf/copyright.yml
+  - conf/webdefaults.yml
+  tasks:
+  - name: install apache
+    apt: name=apache2 state=present update_cache=true
+  - name: check if lync is installed
+    apt: name=lynx=present
