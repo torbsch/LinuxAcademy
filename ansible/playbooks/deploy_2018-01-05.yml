@@ -1,0 +1,16 @@
+--- # Simple playbook
+- hosts: torbsch1
+  gather_facts: no
+  become: yes
+  tasks:
+  - name: install lynx
+    apt: name=lynx state=present update_cache=true
+
+- hosts: torbsch2
+  gather_facts: no
+  become: yes
+  tasks:
+  - name: install telnet
+    apt: name=telnet update_cache=true
+  - name: install lynx  
+    apt: name=telnet state=present update_cache=true
