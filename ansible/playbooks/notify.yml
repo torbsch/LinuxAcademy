@@ -1,0 +1,13 @@
+--- # Notify Playbook
+- hosts: torbsch1
+  connection: ssh
+  become: yes
+  gather_facts: no
+  
+  tasks:
+  - name: install apache
+    apt: name=apache2 state=present
+    notify: Start Apache Service
+  handlers:
+  - name: Start Apache Service
+    service: name=apache2 state=restarted
