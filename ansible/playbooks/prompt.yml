@@ -1,0 +1,16 @@
+--- # Exercise: Playbooks - Prompt
+- hosts: all
+  become: yes
+  gather_facts: no
+  vars:
+  - playbook_version: 0.1
+  vars_prompt:
+  -  name: package_name
+     prompt: Which package to install?
+     private: no
+     default: telnet
+  tasks:
+  - debug:
+     msg: "Echo the package name: {{ package_name }}"
+  - name: Install packages from prompt
+    apt: name={{package_name}} state=latest update_cache=yes
