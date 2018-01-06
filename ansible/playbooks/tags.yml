@@ -1,0 +1,17 @@
+--- # Exercise: Playbooks - Tags
+- hosts: all
+  connection: ssh
+  become: yes
+  gather_facts: no
+  tasks:
+  - name: Install Telnet/Lynx
+    apt: name={{item}} state=latest update_cache=yes
+    with_items:
+    - telnet
+    - lynx
+    tags:
+    - packages
+  - name: Verify that telnet is installed and log it.
+    shell: apt list | grep telnet > /home/ansible/pkg.log
+    tags:
+    - logging
