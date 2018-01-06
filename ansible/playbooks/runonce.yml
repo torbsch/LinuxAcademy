@@ -1,0 +1,11 @@
+--- # Exercise: Playbooks - Run Once
+- hosts: all
+  become: yes
+  gather_facts: no
+  # 
+  tasks:
+  - name: Run Uptime Command & log it into a file
+    shell: uptime > /home/ansible/uptime.log
+  - name: List var directory amd pipe it into a file
+    shell: ls /var > /home/ansible/dir.list
+    run_once: yes
