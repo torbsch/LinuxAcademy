@@ -1,0 +1,12 @@
+--- # Playbook Conditionals
+- hosts: torbsch1
+  connection: ssh
+  become: yes    
+  
+  tasks:
+  - name: install apache (Debian/Ubuntu)
+    apt: name=apache2
+    when: ansible_os_family == "Debian"
+  - name: install apache (RedHat)
+    apt: name=apache2
+    when: ansible_os_family == "RedHat"
