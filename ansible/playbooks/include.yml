@@ -1,0 +1,9 @@
+--- # Exercise: Playbooks - Includes
+- hosts: all
+  connection: ssh
+  become: yes
+  gather_facts: no
+  tasks:
+  - import_tasks: plays/packages.yml
+  - name: Verify Telnet is installed and log it.
+    shell: apt list | grep telnet > /home/ansible/pkgs.log

@@ -1,0 +1,2 @@
+- name: Install telnet
+  apt: name=telnet state=latest update_cache=yes
