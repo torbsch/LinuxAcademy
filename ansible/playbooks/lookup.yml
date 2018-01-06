@@ -1,0 +1,7 @@
+--- # Exercise: Playbooks - Lookup
+- hosts: torbsch1
+  connection: ssh
+  become: yes
+  gather_facts: no
+  tasks:
+  -  debug: msg="{{ lookup('env', 'HOME') }}"
