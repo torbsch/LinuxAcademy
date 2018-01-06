@@ -1,0 +1,8 @@
+--- # Local Action
+- hosts: localhost
+  connection: local
+  gather_facts: no
+  become: yes
+  tasks:
+    - name: install telnet client
+      apt: name=telnet state=present update_cache=true
