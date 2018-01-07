@@ -4,14 +4,25 @@
   gather_facts: no
   tasks:
   - name: Capture a pre-task timestamp
-    shell: date > /home/ansible/playbook_start.yml
-  - name: Install apache, telnet and lynx
+    shell: date
+    register: playbook_start
+  - debug: var=playbook_start
+  - name: Install telnet and lynx
     apt: name={{item}} state=latest update_cache=yes
     with_items:
-    - apache2
     - telnet
     - lynx
+  - name: Install apache
+    apt: name=apache2 state=latest update_cache=yes
+    notify: Restart Apache Service after Installation
   - name: Write Log of all installed packages
-    shell: apt list > /home/ansible/installedpackages.log
+    shell: apt list
+    register: installed
+  - debug: var=installed
   - name: Capture a post-task timestamp
-    shell: date > /home/ansible/playbook_end.yml
+    shell: date
+    register: playbook_end
+  - debug: var=playbook_end
+  handlers:
+  - name: Restart Apache Service after Installation
+    service: name=apache2 state=restarted
