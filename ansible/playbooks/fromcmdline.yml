@@ -1,0 +1,7 @@
+--- # Exercise: Playbooks - Variables from Command Line
+- hosts: '{{hosts}}'
+  gather_facts: no
+  become: yes
+  tasks:
+  - name: Install package from Command Line.
+    apt: name='{{packages}}' state=latest update_cache=yes
