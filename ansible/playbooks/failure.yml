@@ -1,0 +1,11 @@
+--- # Exercise: Playbooks - Ignore Errors
+- hosts: torbsch1
+  connection: ssh
+  become: yes
+  gather_facts: no
+  tasks:
+  - name: Command that will fail
+    command: /bin/false
+    ignore_errors: yes
+  - name: Install telnet
+    apt: name=telnet state=latest update_cache=yes
