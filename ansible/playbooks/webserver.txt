@@ -1,0 +1,9 @@
+- use ssh
+- server = web servers
+- runs as 'sudo'
+
+- Tasks
+    - Capture a pre-task timestamp
+    - Install apache, telnet and lynx
+    - Write Log of all installed packages
+    - Capture a post-task timestamp
