@@ -1,0 +1,12 @@
+--- # Exercise: Playbooks - Start At
+- hosts: torbsch1
+  connection: ssh
+  become: yes
+  gather_facts: no
+  tasks:
+  - name: Install Telnet
+    apt: name=telnet state=latest update_cache=yes
+  - name: Install Lynx
+    apt: name=lynx state=latest update_cache=yes
+  - name: Install Apache
+    apt: name=apache2 state=latest update_cache=yes
