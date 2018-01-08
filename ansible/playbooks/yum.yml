@@ -1,0 +1,7 @@
+--- # Exercise: The 'Apt' Module
+- hosts: torbsch1
+  gather_facts: no
+  become: yes
+  tasks:
+  - name: Upgrade all packages
+    yum: name=* state=latest update_cache=yes
