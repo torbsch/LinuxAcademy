@@ -1,0 +1,9 @@
+--- # Exercise: Playbooks - DelegateTo
+- hosts: all
+  connection: local
+  become: yes
+  gather_facts: no
+  tasks:
+  - name: Install telnet
+    apt: name=telnet state=latest update_cache: yes
+    delegate_to: localhost
