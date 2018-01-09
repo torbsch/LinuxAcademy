@@ -1,0 +1,9 @@
+--- # Exercise: The 'Command' Module
+- hosts: torbsch1
+  gather_facts: no
+  become: yes
+  tasks:
+  - name: Run a shell-script through the command module.
+    command: /home/ansible/testing/test.sh
+    args: 
+      chdir: /home/ansible/testing
