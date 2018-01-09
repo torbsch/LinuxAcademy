@@ -1,0 +1,12 @@
+--- # Exercise: The 'Copy' Module
+- hosts: torbsch1
+  gather_facts: no
+  tasks:
+  - name: Copy text4.txt to remote
+    copy:
+      src: files/text4.txt
+      dest: /home/ansible/text4.txt
+      owner: ansible
+      group: ansible
+      mode: 0777
+      backup: yes
