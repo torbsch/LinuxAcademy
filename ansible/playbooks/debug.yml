@@ -1,0 +1,15 @@
+--- # Exercise: The 'Debug' Module
+- hosts: torbsch2
+  become: yes
+  tasks:
+  - name: Install Apache2
+    apt:
+      name: apache2
+      state: latest
+      update_cache: yes
+  - debug: 
+      msg: Install Apache (apt apache2 latest)
+  - name: Execute uptime
+    shell: uptime
+    register: uptime_value
+  - debug: var=uptime_value
