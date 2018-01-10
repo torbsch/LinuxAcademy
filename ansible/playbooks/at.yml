@@ -1,0 +1,10 @@
+--- # Exercise: The 'AT' Module
+- hosts: torbsch1
+  become: yes
+  gather_facts: no
+  tasks:
+  - name: Schedule a command to run in 1 minute
+    at:
+      command: ls /var/log > /home/ansible/at1.log
+      count: 1
+      units: minutes
