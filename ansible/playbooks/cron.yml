@@ -1,0 +1,11 @@
+--- # Exercise: The 'Cron' Module
+- hosts: torbsch2
+  gather_facts: no
+  become: no
+  tasks:
+  - name: Creates a cron job
+    cron:
+      name: list files
+      job: ls /var/log > /home/ansible/varlog.log
+      minute: 0
+      hour: 1
