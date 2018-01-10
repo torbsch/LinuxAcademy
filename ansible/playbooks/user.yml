@@ -1,0 +1,12 @@
+--- # Exercise: The 'User' Module
+- hosts: torbsch1
+  become: yes
+  gather_facts: no
+  tasks:
+  - name: Adds user 'tst'
+    user:
+      name: 'tst'
+      comment: tst user
+      group: wheel
+      shell: /bin/bash
+    
