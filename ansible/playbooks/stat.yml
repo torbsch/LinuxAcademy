@@ -1,0 +1,11 @@
+--- # Exercise: The 'Stat' Module
+- hosts: torbsch1
+  become: yes
+  gather_facts: no
+  tasks:
+  - name: Test if directory exists
+    stat: path=/home/ansible/test
+    register: path
+  - debug: var=path
+  - debug: msg="Path exists"
+    when: path.stat.isdir is defined and path.stat.isdir
