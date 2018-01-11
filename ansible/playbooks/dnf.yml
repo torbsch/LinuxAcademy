@@ -1,0 +1,7 @@
+--- # Exercise: The 'DNF' Module
+- hosts: torbsch3
+  become: yes
+  gather_facts: no
+  tasks:
+  - name: Install all Development Tools.
+    dnf: name="@Development tools" state=present
