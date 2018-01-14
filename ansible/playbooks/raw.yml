@@ -1,0 +1,7 @@
+--- # Exercise: The 'Raw' Module
+- hosts: torbsch2
+  become: yes
+  gather_facts: no
+  tasks:
+  - name: Run the uptime command via Raw Module and log it.
+    raw: uptime > uptime.log
