@@ -1,0 +1,7 @@
+--- # Exercise: The 'Unarchive' Module
+- hosts: torbsch1
+  become: yes
+  gather_facts: no
+  tasks:
+    - name: Unarchive a tar.gz
+      unarchive: src=files/tar-archive.tar.gz dest=/home/ansible/archive copy=yes
