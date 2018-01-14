@@ -1,0 +1,7 @@
+--- # Exercise: The 'SEBoolean' Module
+- hosts: torbsch3
+  gather_facts: no
+  become: yes
+  tasks:
+  - name: Change SEBoolean Value
+    seboolean: name=httpd_anon_write state=yes persistent=yes

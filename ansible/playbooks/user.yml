@@ -9,4 +9,5 @@
       comment: tst user
       group: wheel
       shell: /bin/bash
+      append: yes
     

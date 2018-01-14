@@ -1,0 +1,7 @@
+--- # Exercise: The 'SELinux' Module
+- hosts: torbsch3
+  become: yes
+  gather_facts: no
+  tasks:
+  - name: Change SELinux policy to permissive and targeted.
+    selinux: state=permissive policy=targeted
