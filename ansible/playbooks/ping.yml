@@ -1,0 +1,7 @@
+--- # Exercise: The 'Ping' Module
+- hosts: all
+  gather_facts: no
+  become: yes
+  tasks:
+    - name: Ping all hosts
+      ping:
