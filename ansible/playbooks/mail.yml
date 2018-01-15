@@ -1,0 +1,10 @@
+--- # Exercise: The 'Mail' Module
+- hosts: torbsch1
+  tasks:
+  - name: Send mail (Ansible User)
+    mail:
+      host: localhost
+      port: 25
+      to: ansible
+      subject: Important Mail
+      body: Read this important mail from {{ ansible_hostname }}.
