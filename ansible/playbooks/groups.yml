@@ -1,0 +1,7 @@
+--- # Exercise: The 'Group' Module
+- hosts: torbsch1
+  become: yes
+  gather_facts: no
+  tasks:
+  - name: Adds usergroup 'newgroup'
+    group: name=newgroup state=present
