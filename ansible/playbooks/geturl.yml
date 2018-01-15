@@ -1,0 +1,10 @@
+--- # Exercise: The 'GetURL' Module
+- hosts: torbsch1
+  become: yes
+  gather_facts: no
+  tasks:
+  - name: Download a file from a webserver.
+    get_url:
+      url: http://torbsch1.mylabserver.com/test.ini
+      dest: /home/ansible/test.ini
+      mode: 0440
