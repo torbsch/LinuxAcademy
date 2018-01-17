@@ -1,0 +1,7 @@
+--- # Exercise: The 'Filesystem' Module
+- hosts: torbsch1
+  become: yes
+  gather_facts: no
+  tasks: 
+  - name: Format filesystem as an ext3 filesystem
+    filesystem: fstype=ext3 dev=/dev/xcdf1
