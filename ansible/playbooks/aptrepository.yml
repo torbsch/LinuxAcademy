@@ -1,0 +1,9 @@
+--- # Exercise: The 'Apt Repo' Module
+- hosts: torbsch1
+  become: yes
+  gather_facts: no
+  tasks:
+  - name: Install the python-apt package
+    apt: name=python-apt state=latest
+  - name: Add Google repository
+    apt_repository: repo='deb http://dl.google.com/linux/deb/ stable main non-free' state=present
