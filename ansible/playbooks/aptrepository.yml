@@ -1,9 +1,11 @@
---- # Exercise: The 'Apt Repo' Module
+--- # Exercise: The 'Apt Repo'/AptKey' Module
 - hosts: torbsch1
   become: yes
   gather_facts: no
   tasks:
   - name: Install the python-apt package
     apt: name=python-apt state=latest
+  - name: Add the key of the google repository
+    apt_key: url=https://dl-ssl.google.com/linux/linux_signing_key.pub state=present
   - name: Add Google repository
     apt_repository: repo='deb http://dl.google.com/linux/deb/ stable main non-free' state=present
