@@ -1,0 +1,11 @@
+--- # Exercise: The 'MySQL_User' Module
+- hosts: torbsch1
+  become: yes
+  gather_facts: no
+  tasks:
+  - name: Create new MySQL User 'Bob'
+    mysql_user:
+      name: bob
+      password: 123password
+      priv: '*.*:ALL'
+      state: present
