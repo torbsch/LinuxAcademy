@@ -1,0 +1,13 @@
+--- # Exercise: The 'MySQL_DB' Module
+- hosts: torbsch1
+  become: yes
+  gather_facts: no
+  tasks:
+  - name: Install MySQL Python Support Libraries
+    apt: name=python-mysqldb state=latest
+  - name: Create new database
+    mysql_db:
+      name: MyNewDB
+      login_user: root
+      login_password: password123
+      state: present
