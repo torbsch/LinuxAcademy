@@ -1,0 +1,12 @@
+--- # Exercise: The 'Mount' Module
+- hosts: torbsch1
+  become: yes
+  gather_facts: no
+  tasks:
+  - name: Mount a filesystem device
+    mount: 
+      name: /mnt/data
+      src: /dev/xcdf1
+      fstype: ext3
+      opts: rw
+      state: present
