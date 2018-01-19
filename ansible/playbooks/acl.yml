@@ -1,0 +1,17 @@
+--- # Exercise: The 'ACL' Module
+- hosts: torbsch1
+  become: yes
+  gather_facts: no
+  tasks:
+  - name: Set ACL for file /ect/test.acl.txt 
+    acl: 
+      path: /etc/test.acl.txt
+      entity: ansible
+      etype: user
+      permissions: "rw"
+      state: present
+  - name: Get ACL for file /ect/test.acl.txt 
+    acl: 
+      path: /etc/test.acl.txt
+    register: aclinfo
+  - debug: msg={{ aclinfo }}
