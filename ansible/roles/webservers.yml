@@ -1,0 +1,6 @@
+--- # Exercise: Roles - Tasks Within a Role
+- hosts: torbsch2
+  become: yes
+  gather_facts: no
+  roles:
+    - webservers

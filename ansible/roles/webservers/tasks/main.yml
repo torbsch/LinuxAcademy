@@ -1,0 +1,4 @@
+- name: Install telnet
+  apt: name=telnet state=latest update_cache=yes
+- name: Install lynx
+  apt: name=lynx state=latest update_cache=yes
