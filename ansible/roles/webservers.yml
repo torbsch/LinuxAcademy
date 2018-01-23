@@ -3,4 +3,5 @@
   become: yes
   gather_facts: yes
   roles:
-    - webservers
+    - { role: webservers_redhat, when: "ansible_os_family == 'RedHat'", tags: ['redhat'] }
+    - { role: webservers_debian, when: "ansible_os_family == 'Debian'", tags: ['debian'] }

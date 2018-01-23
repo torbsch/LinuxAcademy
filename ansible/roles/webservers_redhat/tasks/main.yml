@@ -1,0 +1,4 @@
+- name: Install Apache2 Webserver on RedHat
+  yum: pkg=httpd state=latest
+  notify: Restart Apache2 Service
+  when: "ansible_os_family == 'RedHat'"
