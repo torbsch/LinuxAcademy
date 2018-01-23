@@ -1,3 +1,7 @@
-- name: Install Apache2 Webserver
+- name: Install Apache2 Webserver on RedHat
   yum: pkg=httpd state=latest
   notify: Restart Apache2 Service
+  when: "ansible_os_family == 'RedHat'"
+- name: Install Apache2 Webserver on Debian/Ubuntu
+  apt: name=apache2 state=latest update_cache=yes
+  when: "ansible_os_family == 'Debian'"  

@@ -1,6 +1,6 @@
---- # Exercise: Roles - Tasks Within a Role
-- hosts: torbsch3
+--- # Exercise: Roles - Tasks Within a Role/Conditional Roles
+- hosts: linuxacademy
   become: yes
-  gather_facts: no
+  gather_facts: yes
   roles:
     - webservers
