@@ -1,0 +1,76 @@
+--- # Build an Apache Web Server on Debian/RedHat
+- hosts: linuxacademy
+  become: yes
+  gather_facts: yes
+  connection: ssh
+  tasks:
+  - name: Install Apache Web Server on Debian
+    apt: name=apache2 state=latest update_cache=yes
+    when: "ansible_os_family == 'Debian'"
+  - name: Install Apache Web Server on RedHat
+    yum: name=httpd state=latest
+    when: "ansible_os_family == 'RedHat'"
+  - name: Create Web Server Directory
+    file: 
+      path: /var/www/html/sample
+      state: directory
+      mode: 755
+      owner: ansible
+  - name: Configurate Apache on Debian
+    file: 
+      src: conf/apache.conf
+      dest: /etc/apache2/apache2.conf
+      group: root
+      mode: 644
+    when: "ansible_os_family == 'Debian'"
+  - name: Configurate Apache on RedHat
+    file: 
+      src: conf/apache.conf
+      dest: /etc/httpd/conf/httpd.conf
+      group: root
+      mode: 644
+    when: "ansible_os_family == 'RedHat'"
+  - name: Create the VHOST.D directory on the remote host on Debian
+    file:
+      path: /etc/apache2/vhost.d
+      state: directory
+      mode: 644
+    when: "ansible_os_family == 'Debian'"    
+  - name: Create the VHOST.D directory on the remote host on RedHat
+    file:
+      path: /etc/httpd/vhost.d
+      state: directory
+      mode: 755
+    when: "ansible_os_family == 'RedHat'"
+  - name: Copy code of the site to new directory
+    file:
+      src: files/index.html
+      dest: /var/www/html/sample #"{{ apache_dir }}"
+      mode: 644
+  - name: Copy the default vhost configuration file on Debian
+    copy:
+      src: files/default.conf.template
+      dest: /etc/apache2/vhost.d/default.conf
+      owner: root
+      group: root
+      mode: 644
+    when: "ansible_os_family == 'Debian'" 
+  - name: Copy the default vhost configuration file on RedHat
+    copy:
+      src: files/default.conf.template
+      dest: /etc/httpd/vhost.d/default.conf
+      owner: root
+      group: root
+      mode: 644
+    when: "ansible_os_family == 'RedHat'"
+  - name: Start the apache service on Debian
+    service: name=apache2 state=restarted
+    when: "ansible_os_family == 'Debian'"
+  - name: Start the apache service on RedHat
+    service: name=httpd state=restarted
+    when: "ansible_os_family == 'RedHat'"
+  - name: Test the web server
+    shell: curl http://torbsch2.mylabserver.com
+    register: result
+  - name: DisplayResult
+    debug: var=result
