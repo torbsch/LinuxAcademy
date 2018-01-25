@@ -1,0 +1,26 @@
+--- Build an Apache Web Server on Debian/RedHat
+
+- Info Needed:
+  - Name of package
+  - Distribution
+  - Site Name
+
+- What needs to be done:
+  - Install Apache Web Server
+  - Create Web Server Directory
+  - Web Server directory has proper ownership
+  - Configurate Apache
+    - Copy the http configuration file
+    - Set up the vhost directory
+    - Add any ssl keys if needed
+  - Copy code of the site to new directory
+  - Add/enable any module
+    - database
+    - ssl
+    - mod/rewrite
+  - Start the apache service
+
+- Test
+  - using lynx/telnet to test that web service is running
+    - waitfor port 80 to be listening
+  - register output for the service status as json on the completion of the playbook
