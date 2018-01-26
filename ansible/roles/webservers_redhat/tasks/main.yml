@@ -1,4 +1,37 @@
-- name: Install Apache2 Webserver on RedHat
-  yum: pkg=httpd state=latest
-  notify: Restart Apache2 Service
-  when: "ansible_os_family == 'RedHat'"
+- name: Install Apache Web Server on RedHat
+  yum: name='{{ service_name }}' state=latest
+- name: Create Web Server Directory
+  file: 
+    path: '{{ apache_dir }}'
+    state: directory
+    mode: '{{ dir_mode }}'    
+- name: Configurate Apache on RedHat
+  file: 
+    src: conf/apache.conf
+    dest: "{{ apache_configration_path }}/conf/httpd.conf"
+    group: root
+    mode: '{{ file_mode }}'
+- name: Create the VHOST.D directory on the remote host on RedHat
+  file:
+    path: "{{ apache_configration_path }}/vhost.d"
+    state: directory
+    mode: '{{ file_mode }}'
+- name: Copy code of the site to new directory
+  copy:
+    src: index.html
+    dest: "{{ apache_dir }}"
+    mode: '{{ file_mode }}'
+- name: Copy the default vhost configuration file on RedHat
+  copy:
+    src: default.conf.template
+    dest: "{{ apache_configration_path }}/vhost.d/default.conf"
+    owner: root
+    group: root
+    mode: '{{ file_mode }}'
+- name: Start the apache service on RedHat
+  service: name='{{ service_name }}' state=restarted
+- name: Test the web server
+  shell: curl "{{ fqdn }}"
+  register: result
+- name: DisplayResult
+  debug: var=result

@@ -1,0 +1,6 @@
+  apache_dir: /var/www/html/sample
+  apache_configration_path: /etc/httpd
+  fqdn: http://torbsch3.mylabserver.com
+  dir_mode: 0755
+  file_mode: 0644
+  service_name: httpd
