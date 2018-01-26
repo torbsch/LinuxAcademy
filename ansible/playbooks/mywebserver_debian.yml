@@ -19,7 +19,7 @@
       state: directory
       mode: '{{ dir_mode }}'
   - name: Configurate Apache on Debian
-    file: 
+    copy: 
       src: conf/apache.conf
       dest: "{{ apache_configration_path }}/apache2.conf"
       group: root
