@@ -11,7 +11,7 @@
     file_mode: 0644
     service_name: httpd
   tasks:
-  - name: Install Apache Web Server on Debian
+  - name: Install Apache Web Server on RedHat
     yum: name='{{ service_name }}' state=latest
   - name: Create Web Server Directory
     file: 
