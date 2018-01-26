@@ -3,6 +3,8 @@
   become: yes
   gather_facts: yes
   connection: ssh
+  vars:
+    apache_dir: /var/www/html/sample
   tasks:
   - name: Install Apache Web Server on Debian
     apt: name=apache2 state=latest update_cache=yes
@@ -12,7 +14,7 @@
     when: "ansible_os_family == 'RedHat'"
   - name: Create Web Server Directory
     file: 
-      path: /var/www/html/sample
+      path: '{{ apache_dir }}'
       state: directory
       mode: 0755
   - name: Configurate Apache on Debian
@@ -44,7 +46,7 @@
   - name: Copy code of the site to new directory
     copy:
       src: files/index.html
-      dest: /var/www/html/sample/ #"{{ apache_dir }}"
+      dest: "{{ apache_dir }}"
       mode: 0644
     tags: test
   - name: Copy the default vhost configuration file on Debian
