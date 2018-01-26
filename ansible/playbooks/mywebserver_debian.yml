@@ -1,0 +1,49 @@
+--- # Build an Apache Web Server on Debian
+- hosts: torbsch2
+  become: yes
+  gather_facts: no
+  connection: ssh
+  vars:
+    apache_dir: /var/www/html/sample
+    apache_configration_path: /etc/apache2
+    fqdn: http://torbsch2.mylabserver.com
+    dir_mode: 0755
+    file_mode: 0644
+  tasks:
+  - name: Install Apache Web Server on Debian
+    apt: name=apache2 state=latest update_cache=yes
+  - name: Create Web Server Directory
+    file: 
+      path: '{{ apache_dir }}'
+      state: directory
+      mode: '{{ dir_mode }}'
+  - name: Configurate Apache on Debian
+    file: 
+      src: conf/apache.conf
+      dest: "{{ apache_configration_path }}/apache2.conf"
+      group: root
+      mode: '{{ file_mode }}'
+  - name: Create the VHOST.D directory on the remote host on Debian
+    file:
+      path: "{{ apache_configration_path }}/vhost.d"
+      state: directory
+      mode: '{{ file_mode }}'
+  - name: Copy code of the site to new directory
+    copy:
+      src: files/index.html
+      dest: "{{ apache_dir }}"
+      mode: '{{ file_mode }}'
+  - name: Copy the default vhost configuration file on Debian
+    copy:
+      src: files/default.conf.template
+      dest: "{{ apache_configration_path }}/vhost.d/default.conf"
+      owner: root
+      group: root
+      mode: '{{ file_mode }}'
+  - name: Start the apache service on Debian
+    service: name=apache2 state=restarted
+  - name: Test the web server
+    shell: curl "{{ fqdn }}"
+    register: result
+  - name: DisplayResult
+    debug: var=result
