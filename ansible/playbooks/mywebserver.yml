@@ -14,46 +14,46 @@
     file: 
       path: /var/www/html/sample
       state: directory
-      mode: 755
-      owner: ansible
+      mode: 0755
   - name: Configurate Apache on Debian
     file: 
       src: conf/apache.conf
       dest: /etc/apache2/apache2.conf
       group: root
-      mode: 644
+      mode: 0644
     when: "ansible_os_family == 'Debian'"
   - name: Configurate Apache on RedHat
     file: 
       src: conf/apache.conf
       dest: /etc/httpd/conf/httpd.conf
       group: root
-      mode: 644
+      mode: 0644
     when: "ansible_os_family == 'RedHat'"
   - name: Create the VHOST.D directory on the remote host on Debian
     file:
       path: /etc/apache2/vhost.d
       state: directory
-      mode: 644
+      mode: 0644
     when: "ansible_os_family == 'Debian'"    
   - name: Create the VHOST.D directory on the remote host on RedHat
     file:
       path: /etc/httpd/vhost.d
       state: directory
-      mode: 755
+      mode: 0755
     when: "ansible_os_family == 'RedHat'"
   - name: Copy code of the site to new directory
-    file:
+    copy:
       src: files/index.html
-      dest: /var/www/html/sample #"{{ apache_dir }}"
-      mode: 644
+      dest: /var/www/html/sample/ #"{{ apache_dir }}"
+      mode: 0644
+    tags: test
   - name: Copy the default vhost configuration file on Debian
     copy:
       src: files/default.conf.template
       dest: /etc/apache2/vhost.d/default.conf
       owner: root
       group: root
-      mode: 644
+      mode: 0644
     when: "ansible_os_family == 'Debian'" 
   - name: Copy the default vhost configuration file on RedHat
     copy:
@@ -61,7 +61,7 @@
       dest: /etc/httpd/vhost.d/default.conf
       owner: root
       group: root
-      mode: 644
+      mode: 0644
     when: "ansible_os_family == 'RedHat'"
   - name: Start the apache service on Debian
     service: name=apache2 state=restarted
