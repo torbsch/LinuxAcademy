@@ -1,2 +1,0 @@
-- name: Restart Apache2 Service
-  service: name=httpd state=restarted
