@@ -9,6 +9,7 @@
     fqdn: http://torbsch2.mylabserver.com
     dir_mode: 0755
     file_mode: 0644
+    service_name: apache2
   tasks:
   - name: Install Apache Web Server on Debian
     apt: name=apache2 state=latest update_cache=yes
@@ -41,7 +42,7 @@
       group: root
       mode: '{{ file_mode }}'
   - name: Start the apache service on Debian
-    service: name=apache2 state=restarted
+    service: name='{{ service_name }}'state=restarted
   - name: Test the web server
     shell: curl "{{ fqdn }}"
     register: result
