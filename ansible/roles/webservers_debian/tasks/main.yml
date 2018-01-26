@@ -1,9 +1,37 @@
-- name: Install Apache2 Webserver on Debian/Ubuntu
+- name: Install Apache Web Server on Debian
   apt: name=apache2 state=latest update_cache=yes
-- name: Copy modified (Jinja2) configuration file to server.
-  template: 
-    src: test.conf.j2
-    dest: /home/ansible/test.conf
-    owner: ansible
-    group: ansible
-    mode: 750
+- name: Create Web Server Directory
+  file: 
+    path: '{{ apache_dir }}'
+    state: directory
+    mode: '{{ dir_mode }}'
+- name: Configurate Apache on Debian
+  copy: 
+    src: apache.conf
+    dest: "{{ apache_configration_path }}/apache2.conf"
+    group: root
+    mode: '{{ file_mode }}'
+- name: Create the VHOST.D directory on the remote host on Debian
+  file:
+    path: "{{ apache_configration_path }}/vhost.d"
+    state: directory
+    mode: '{{ file_mode }}'
+- name: Copy code of the site to new directory
+  copy:
+    src: index.html
+    dest: "{{ apache_dir }}"
+    mode: '{{ file_mode }}'
+- name: Copy the default vhost configuration file on Debian
+  copy:
+    src: default.conf.template
+    dest: "{{ apache_configration_path }}/vhost.d/default.conf"
+    owner: root
+    group: root
+    mode: '{{ file_mode }}'
+- name: Start the apache service on Debian
+  service: name='{{ service_name }}'state=restarted
+- name: Test the web server
+  shell: curl "{{ fqdn }}"
+  register: result
+- name: DisplayResult
+  debug: var=result
