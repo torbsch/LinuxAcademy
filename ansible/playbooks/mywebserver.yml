@@ -5,6 +5,7 @@
   connection: ssh
   vars:
     apache_dir: /var/www/html/sample
+    fqdn: http://torbsch2.mylabserver.com
   tasks:
   - name: Install Apache Web Server on Debian
     apt: name=apache2 state=latest update_cache=yes
@@ -48,7 +49,6 @@
       src: files/index.html
       dest: "{{ apache_dir }}"
       mode: 0644
-    tags: test
   - name: Copy the default vhost configuration file on Debian
     copy:
       src: files/default.conf.template
@@ -72,7 +72,7 @@
     service: name=httpd state=restarted
     when: "ansible_os_family == 'RedHat'"
   - name: Test the web server
-    shell: curl http://torbsch2.mylabserver.com
+    shell: curl "{{ fqdn }}"
     register: result
   - name: DisplayResult
     debug: var=result
