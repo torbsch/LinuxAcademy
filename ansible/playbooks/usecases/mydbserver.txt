@@ -13,7 +13,3 @@
   - restart db service after configuring (if needed)
   - copy the database backup to home directory
   - import the database
-  - add a cron job for nightly backups
-
-- Testing the database
-  - run a MYSQL command and register the output to a JSON format to determine success
