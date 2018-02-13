@@ -1,0 +1,2 @@
+database_name: mysqltest
+remote_database_dump: /tmp/{{ database_name }}.sql

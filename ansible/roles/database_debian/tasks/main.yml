@@ -1,0 +1,24 @@
+- name: Install MariaDB server with dependencies
+  apt:
+    name: '{{ item }}'
+    state: latest
+  with_items:
+    - mariadb-server
+    - python-mysqldb
+- name: Copy database backup in order to restore it
+  copy:
+    src: files/{{ database_name }}.sql
+    dest: '{{ remote_database_dump }}'
+    owner: root
+    group: root
+    mode: 755
+- name: check if DB exists
+  shell: mysql -e "SHOW DATABASES LIKE '{{ database_name }}';"
+  register: dbstatus
+- name: Import database backup
+  mysql_db:
+    name: mysqltest
+    state: import
+    target: '{{ remote_database_dump }}'
+  when: dbstatus.stdout==""
+      
