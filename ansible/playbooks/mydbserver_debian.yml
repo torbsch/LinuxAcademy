@@ -13,7 +13,6 @@
     with_items:
       - mariadb-server
       - python-mysqldb
-# Install mysql_secure_installation ???
   - name: Copy database backup in order to restore it
     copy:
       src: files/{{ database_name }}.sql
