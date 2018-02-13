@@ -1,0 +1,7 @@
+--- # Exercise: Roles - Tasks Within a Role/Conditional Roles
+- hosts: linuxacademy
+  become: yes
+  gather_facts: no
+  roles:
+    - webservers_debian
+    - database_debian
