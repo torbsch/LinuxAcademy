@@ -1,0 +1,19 @@
+- Installing and Configuring a MariaDB Server
+- Installation privileges needs sudo rights
+- Connection is SSH
+
+- What do we need to know?
+  - package name of the DB Server
+  - group/host of the master server
+  - directory for installing the db
+  - version of the db
+
+- What needs to be done?
+  - install MariaDB server and utilities
+  - restart db service after configuring (if needed)
+  - copy the database backup to home directory
+  - import the database
+  - add a cron job for nightly backups
+
+- Testing the database
+  - run a MYSQL command and register the output to a JSON format to determine success
