@@ -1,0 +1,33 @@
+--- # Playbook for installation/configuring a database server on debian9
+- hosts: torbsch2
+  become: yes
+  gather_facts: no
+  vars:
+    database_name: mysqltest
+    remote_database_dump: /tmp/{{ database_name }}.sql
+  tasks:
+  - name: Install MariaDB server with dependencies
+    apt:
+      name: '{{ item }}'
+      state: latest
+    with_items:
+      - mariadb-server
+      - python-mysqldb
+# Install mysql_secure_installation ???
+  - name: Copy database backup in order to restore it
+    copy:
+      src: files/{{ database_name }}.sql
+      dest: '{{ remote_database_dump }}'
+      owner: root
+      group: root
+      mode: 755
+  - name: check if DB exists
+    shell: mysql -e "SHOW DATABASES LIKE '{{ database_name }}';"
+    register: dbstatus
+  - name: Import database backup
+    mysql_db:
+      name: mysqltest
+      state: import
+      target: '{{ remote_database_dump }}'
+    when: dbstatus.stdout==""
+      
