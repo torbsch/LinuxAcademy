@@ -1,0 +1,9 @@
+--- # Exercise: The 'Package' Module
+- hosts: linuxacademy
+  become: yes
+  gather_facts: no
+  tasks:
+  - name: Install Telnet Client on all Distribution Types
+    package:
+      name: telnet
+      state: latest
