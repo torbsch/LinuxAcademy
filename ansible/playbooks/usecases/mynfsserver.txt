@@ -1,0 +1,19 @@
+- installing and configuring an NFS static content server for web use
+- needs to become sudo user
+- connection is ssh
+
+
+- What do we need to know?
+  - distrubution of the server
+  - package name for distribution if NFS server
+  - path to the shared file space
+
+- What do we need to do?
+  - install the NFS server/client + utilities
+  - export the shared directory (/etc/exports)
+  - add our LA lab network
+  - configure the filesystem export for read/write on known networks
+    - disable any unknown network or user connectivity
+
+- test
+  - capture the NFS server service status as JSON and register the result
