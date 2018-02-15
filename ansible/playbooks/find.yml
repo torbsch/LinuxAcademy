@@ -1,0 +1,11 @@
+--- # Exercise: The 'Find' Module
+- hosts: torbsch3
+  become: yes
+  gather_facts: no
+  tasks:
+  - name: Search for the fstab file
+    find:
+      paths: /etc
+      patterns: fstab
+    register: result
+  - debug: var=result
