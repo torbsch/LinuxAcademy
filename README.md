@@ -1,1 +1,1 @@
-# LinuxAcademy
+# Katas
